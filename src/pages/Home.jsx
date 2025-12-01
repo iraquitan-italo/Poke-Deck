@@ -1,6 +1,6 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState } from "react";
-import List from "../components/List";
+import List from "../componentes/List.jsx"; // <-- Pasta em português e extensão .jsx!
 import "../styles/list.css";
 
 export default function Home() {
