@@ -1,0 +1,33 @@
+/* footer.css */
+.footer {
+  background: var(--poke-dark);
+  color: #aaa;
+  text-align: center;
+  padding: 3rem 0 2rem;
+  margin-top: 6rem;
+  border-top: 5px solid var(--poke-yellow);
+}
+
+.footer__content p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.footer a {
+  color: var(--poke-yellow);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.heart {
+  color: #ff4a4a;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
