@@ -1,0 +1,32 @@
+/* src/styles/list.css */
+.home { padding: 16px; max-width: 1100px; margin: 0 auto; }
+.controls { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+.controls button { padding:8px 12px; border:1px solid #ccc; background:#fff; cursor:pointer; border-radius:6px; }
+.controls button.active { background:#222; color:#fff; border-color:#222; }
+
+.info { color:#666; }
+.error { color:crimson; }
+
+.list-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.card-item {
+  display:block;
+  text-decoration:none;
+  color:inherit;
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid #e6e6e6;
+  background:var(--card-bg, #fff);
+  transition: transform .12s ease, box-shadow .12s ease;
+  padding:8px;
+}
+.card-item:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+
+.card-thumb img { width:100%; height:160px; object-fit:cover; display:block; border-radius:6px; background:#f3f3f3; }
+.card-body { padding:8px 4px; }
+.card-body h4 { margin:0 0 6px 0; font-size:14px; }
+.card-body .types { font-size:12px; color:#666; margin:0; }
