@@ -1,0 +1,203 @@
+:root {
+  --poke-blue: #3b4cca;
+  --poke-red: #ff0000;
+  --poke-yellow: #ffde00;
+  --poke-dark: #222034;
+  --poke-gray: #847a94;
+  --poke-light: #f8f8f8;
+}
+
+.header {
+  background: linear-gradient(135deg, var(--poke-blue), #5b6ee1);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  font-family: 'Pokemon Solid', 'Arial', sans-serif;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+
+/* Logo com Pokebola */
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: white;
+}
+
+.logo-pokeball {
+  width: 50px;
+  height: 50px;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+  border: 4px solid var(--poke-red);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.logo-pokeball::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  border: 4px solid var(--poke-red);
+  z-index: 2;
+}
+
+.pokeball-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: white;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.header__logo h1 {
+  font-size: 2.2rem;
+  letter-spacing: 2px;
+}
+
+.header__logo span {
+  color: var(--poke-yellow);
+  text-shadow: 0 0 10px #ffde00aa;
+}
+
+/* Navegação */
+.header__nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.header__link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 8px 16px;
+  border-radius: 25px;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.header__link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+/* Cores por tipo */
+.type-water { background: rgba(68, 155, 255, 0.3); }
+.type-fire { background: rgba(255, 74, 74, 0.3); }
+.type-grass { background: rgba(74, 209, 94, 0.3); }
+.type-lightning { background: rgba(255, 203, 5, 0.3); }
+
+.type-water:hover { background: #449bff; }
+.type-fire:hover { background: #ff4a4a; }
+.type-grass:hover { background: #4ad15f; }
+.type-lightning:hover { background: #ffcb05; }
+
+/* Botões à direita */
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.2);
+}
+
+.header__mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.header__mobile-toggle span {
+  width: 30px;
+  height: 4px;
+  background: var(--poke-yellow);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .header__nav {
+    position: fixed;
+    top: 80px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background: var(--poke-blue);
+    transition: left 0.4s ease;
+    padding: 2rem 0;
+  }
+
+  .header__nav.active {
+    left: 0;
+  }
+
+  .header__list {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .header__link {
+    font-size: 1.5rem;
+    width: 80%;
+    text-align: center;
+  }
+
+  .header__mobile-toggle {
+    display: flex;
+  }
+
+  /* Hambúrguer vira X */
+  .header__mobile-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+  }
+  .header__mobile-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .header__mobile-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(10px, -10px);
+  }
+}
