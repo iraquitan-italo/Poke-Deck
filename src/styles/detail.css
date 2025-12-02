@@ -1,120 +1,71 @@
-/* src/styles/detail.css */
-
-/* Container principal */
-.section-container {
-  max-width: 1100px;
+.detail-container {
+  max-width: 1000px;
   margin: 0 auto;
-  padding: calc(var(--header-height, 80px) + 16px) 16px 32px;
+  padding: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Título do card */
-.section-title {
-  font-size: 1.8rem;
-  color: #333;
+.back-button {
+  background-color: #3b4cca;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
   margin-bottom: 16px;
-  font-weight: 700;
+  transition: all 0.2s ease;
 }
 
-/* Avisos/info/erro */
-.info { color: #666; margin-bottom: 12px; }
-.error { color: crimson; margin-bottom: 12px; }
+.back-button:hover {
+  filter: brightness(0.9);
+  transform: translateY(-2px);
+}
 
-/* Layout principal do detalhe */
-.card-detail-main {
+.card-content {
   display: flex;
-  gap: 24px;
   flex-wrap: wrap;
+  gap: 24px;
   align-items: flex-start;
 }
 
-/* Container da imagem */
-.card-detail-thumb {
+.card-image {
   width: 300px;
   max-width: 100%;
   aspect-ratio: 4 / 3;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #f3f3f3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Imagem do card */
-.card-detail-thumb img {
-  max-width: 100%;
-  max-height: 100%;
   object-fit: contain;
-  display: block;
+  border-radius: 8px;
+  background: #f3f3f3;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-/* Conteúdo do card */
-.card-detail-info-box {
+.card-info {
   flex: 1;
   min-width: 220px;
-  font-size: 14px;
 }
 
-/* Tipos do card */
-.card-detail-info-box p strong {
-  display: inline-block;
-  min-width: 60px;
+.card-info h1 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 24px;
 }
 
-/* Lista de ataques */
-.card-detail-info-box ul {
-  padding-left: 16px;
-  margin: 4px 0;
+.card-info p {
+  margin: 6px 0;
+  font-size: 16px;
 }
 
-.card-detail-info-box li {
-  margin-bottom: 8px;
-}
-
-/* Botão/link voltar */
-.card-detail-info-box a {
-  margin-top: 16px;
-  display: inline-block;
-  color: #3b4cca;
+.card-info .type {
   font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer;
+  color: #333;
 }
 
-/* Skeletons */
-.card-skeleton {
-  width: 100%;
-  height: 220px;
-  border-radius: 8px;
-  background: linear-gradient(90deg,#eee,#f6f6f6,#eee);
-  background-size: 200% 100%;
-  animation: shimmer 1.2s linear infinite;
+.detail-container .error {
+  color: crimson;
+  font-weight: bold;
 }
 
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* Tipos coloridos (aproveitando cores padrão dos cards) */
-.type-water     { background-color: #6390F0; color: #fff; padding: 2px 6px; border-radius: 12px; margin-right: 6px; font-size: 12px; }
-.type-fire      { background-color: #EE8130; color: #fff; padding: 2px 6px; border-radius: 12px; margin-right: 6px; font-size: 12px; }
-.type-grass     { background-color: #7AC74C; color: #fff; padding: 2px 6px; border-radius: 12px; margin-right: 6px; font-size: 12px; }
-.type-lightning { background-color: #F7D02C; color: #000; padding: 2px 6px; border-radius: 12px; margin-right: 6px; font-size: 12px; }
-
-/* Botões retry */
-.controls-load-more--primary {
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: none;
-  font-weight: 700;
-  cursor: pointer;
-  background: #3b4cca;
-  color: #fff;
-  box-shadow: 0 6px 18px rgba(59,76,202,0.12);
-  transition: filter .12s ease, transform .12s ease, box-shadow .12s ease;
-}
-.controls-load-more--primary:hover {
-  filter: brightness(.9);
-  transform: translateY(-2px);
+.detail-container .info {
+  color: #666;
 }
