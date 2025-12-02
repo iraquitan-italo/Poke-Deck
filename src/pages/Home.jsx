@@ -1,6 +1,7 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState } from "react";
-import List from "../components/List";
+import List from "../componentes/List";
+import Section from "../componentes/Section"; // ⬅️ IMPORTANTE
 import "../styles/list.css";
 
 export default function Home() {
@@ -18,7 +19,6 @@ export default function Home() {
       if (!res.ok) throw new Error("Erro ao buscar cards da API");
       const data = await res.json();
       const items = data.cards || [];
-      // opcional: limitar para evitar página pesada
       setCards(items.slice(0, 200));
       setFiltered(items.slice(0, 200));
     } catch (err) {
@@ -44,30 +44,36 @@ export default function Home() {
 
   return (
     <main className="home">
-      <section className="controls">
-        <button
-          className={!activeFilter ? "active" : ""}
-          onClick={() => filterType(null)}
-        >
-          Todos
-        </button>
-        {["Water","Fire","Grass","Lightning"].map(t => (
+
+      {/* ⬅️ Envolvendo os botões em Section */}
+      <Section title="Filtros">
+        <div className="controls">
           <button
-            key={t}
-            className={activeFilter === t ? "active" : ""}
-            onClick={() => filterType(t)}
+            className={!activeFilter ? "active" : ""}
+            onClick={() => filterType(null)}
           >
-            {t}
+            Todos
           </button>
-        ))}
-      </section>
 
-      {loading && <p className="info">Carregando cards...</p>}
-      {error && <p className="error">Erro: {error}</p>}
+          {["Water", "Fire", "Grass", "Lightning"].map(t => (
+            <button
+              key={t}
+              className={activeFilter === t ? "active" : ""}
+              onClick={() => filterType(t)}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+      </Section>
 
-      {!loading && !error && (
-        <List cards={filtered} />
-      )}
+      {/* ⬅️ Envolvendo Lista em outra Section */}
+      <Section title="Lista de Cards">
+        {loading && <p className="info">Carregando cards...</p>}
+        {error && <p className="error">Erro: {error}</p>}
+        {!loading && !error && <List cards={filtered} />}
+      </Section>
+
     </main>
   );
 }
