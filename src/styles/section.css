@@ -1,0 +1,12 @@
+.section-container {
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.4rem;
+  margin-bottom: .5rem;
+}
+
+.section-content button {
+  margin-right: 8px;
+}
