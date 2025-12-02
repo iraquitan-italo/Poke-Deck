@@ -1,69 +1,79 @@
-import React, { useState, useEffect } from 'react';
-// Importa o hook para o tema
-import { useTheme } from '../context/ThemaContext';
+import React, { useState } from 'react';
+import { useTheme } from '../context/ThemeContext';
 import { Link } from 'react-router-dom';
+import "../styles/header.css";
 
-// Componente Header funcional
 export default function Header() {
-    // Puxa a função de alternar tema e o tema atual
-    const { toggleTheme, currentTheme } = useTheme();
+  const { toggleTheme, theme } = useTheme();
 
-    // Estado para controle do menu mobile, se for necessário
-    const [isMobileOpen, setIsMobileOpen] = useState(false);
+  // Estado para controle do menu mobile
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-    // Função para alternar o estado do menu
-    const handleToggleMobileMenu = () => {
-        setIsMobileOpen(!isMobileOpen);
-    };
+  // Alterna o menu mobile
+  const handleToggleMobileMenu = () => {
+    setIsMobileOpen(prev => !prev);
+  };
 
-    return (
-        <header className="header">
-            <div className="container header_container">
-                {/* Logo e Nome do Projeto */}
-                <div className="header_logo">
-                    <Link to="/">
-                        <span className="logo-pokeball"></span>
-                        <span className="logo-text">Poke-Deck</span>
-                    </Link>
-                </div>
+  // Fecha o menu mobile (usar nos Links)
+  const closeMobileMenu = () => setIsMobileOpen(false);
 
-                {/* Navegação Principal */}
-                <nav className={`header_nav ${isMobileOpen ? 'active' : ''}`}>
-                    <ul className="header_list">
-                        <li>
-                            <Link to="/" onClick={handleToggleMobileMenu}>Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/card/1" onClick={handleToggleMobileMenu}>Card Detalhes</Link>
-                        </li>
-                        <li>
-                            <Link to="/curriculo" onClick={handleToggleMobileMenu}>Currículo</Link>
-                        </li>
-                    </ul>
-                </nav>
+  return (
+    <header className="header">
+      <div className="container header__container">
+        {/* Logo e Nome do Projeto */}
+        <div className="header__logo">
+          <Link to="/" className="header__link" onClick={closeMobileMenu}>
+            <span className="logo-pokeball" aria-hidden="true"></span>
+            <span className="logo-text">Poke-Deck</span>
+          </Link>
+        </div>
 
-                {/* Ações (Botão de Tema) */}
-                <div className="header_actions">
-                    {/* Botão de alternar tema */}
-                    <button 
-                        onClick={toggleTheme} 
-                        className={`theme-toggle ${currentTheme === 'dark' ? 'active' : ''}`}
-                        aria-label="Alterar tema"
-                    >
-                        {/* Ícones de sol ou lua, dependendo do tema */}
-                        <span className={`icon ${currentTheme === 'light' ? 'icon-sun' : 'icon-moon'}`}></span>
-                        {/* Texto opcional */}
-                        <span className="theme-text">{currentTheme === 'light' ? 'Escuro' : 'Claro'}</span>
-                    </button>
+        {/* Navegação Principal */}
+        <nav
+          id="main-navigation"
+          className={`header__nav ${isMobileOpen ? 'active' : ''}`}
+          aria-label="Navegação principal"
+        >
+          <ul className="header__list">
+            <li>
+              <Link to="/" className="header__link" onClick={closeMobileMenu}>Home</Link>
+            </li>
 
-                    {/* Botão Mobile Toggle */}
-                    <button className="header_mobile_toggle" onClick={handleToggleMobileMenu}>
-                        <span className="bar"></span>
-                        <span className="bar"></span>
-                        <span className="bar"></span>
-                    </button>
-                </div>
-            </div>
-        </header>
-    );
+          </ul>
+        </nav>
+
+        {/* Ações (Botão de Tema + Botão Mobile) */}
+        <div className="header__actions">
+          {/* Botão de alternar tema */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className={`theme-toggle ${theme === 'dark' ? 'active' : ''}`}
+            aria-pressed={theme === 'dark'}
+            aria-label="Alternar tema"
+            title={theme === 'light' ? 'Mudar para tema escuro' : 'Mudar para tema claro'}
+          >
+            <span className={`icon ${theme === 'light' ? 'icon-sun' : 'icon-moon'}`} aria-hidden="true"></span>
+            <span className="theme-text">
+              {theme === 'light' ? 'Escuro' : 'Claro'}
+            </span>
+          </button>
+
+          {/* Botão Mobile Toggle (hambúrguer) */}
+          <button
+            type="button"
+            className={`header__mobile-toggle ${isMobileOpen ? 'active' : ''}`}
+            onClick={handleToggleMobileMenu}
+            aria-controls="main-navigation"
+            aria-expanded={isMobileOpen}
+            aria-label={isMobileOpen ? 'Fechar menu' : 'Abrir menu'}
+          >
+            <span className="bar" aria-hidden="true"></span>
+            <span className="bar" aria-hidden="true"></span>
+            <span className="bar" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+  );
 }

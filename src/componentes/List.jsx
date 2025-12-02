@@ -1,6 +1,6 @@
-// src/components/List.jsx
 import React from "react";
 import ListItem from "./ListItem";
+import "../styles/list.css"; // garante que o CSS da lista seja carregado
 
 export default function List({ cards }) {
   if (!cards || cards.length === 0) {
@@ -8,10 +8,15 @@ export default function List({ cards }) {
   }
 
   return (
-    <div className="list-grid">
-      {cards.map(card => (
-        <ListItem key={card.id} card={card} />
+    <ul className="list-grid" role="list" aria-live="polite">
+      {cards.map((card, idx) => (
+        <li
+          key={card?.id ?? `${card?.name ?? 'card'}-${idx}`}
+          className="list-grid__item"
+        >
+          <ListItem card={card} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

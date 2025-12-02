@@ -1,15 +1,21 @@
-''
-
 import React from 'react';
+import { Link } from 'react-router-dom'; 
 import '../styles/footer.css';
 
-feature/curriculo
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="container footer__content">
-        <p>© 2025 PokéDeck • Feito com <span className="heart">❤️</span> e React</p>
-        <p>Consumindo dados da <a href="https://pokemontcg.io" target="_blank" rel="noopener">Pokémon TCG API</a></p>
+
+        <p>© 2025 PokéDeck • Feito com <span className="heart"></span> React</p>
+
+        <p>
+          Consumindo dados da <br/> 
+          <a href="https://pokemontcg.io" target="_blank" rel="noopener noreferrer">
+           Pokémon TCG API
+          </a>
+        </p>
+
         <Link to="/curriculo">Currículo</Link>
 
       </div>
@@ -18,4 +24,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

@@ -5,9 +5,14 @@
   --poke-dark: #222034;
   --poke-gray: #847a94;
   --poke-light: #f8f8f8;
+
+  /* variável central para controlar altura do header */
+  --header-height: 80px;
 }
 
+/* Header fixo */
 .header {
+  height: var(--header-height); /* garante altura conhecida */
   background: linear-gradient(135deg, var(--poke-blue), #5b6ee1);
   color: white;
   position: fixed;
@@ -19,12 +24,15 @@
   font-family: 'Pokemon Solid', 'Arial', sans-serif;
 }
 
+
+/* container */
 .container {
   max-width: 1300px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
+/* Correção: header__container (antes header__container no CSS, mas JSX usava header_container) */
 .header__container {
   display: flex;
   align-items: center;
@@ -65,26 +73,12 @@
   z-index: 2;
 }
 
-.pokeball-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 14px;
-  height: 14px;
-  background: white;
-  border-radius: 50%;
-  z-index: 3;
-}
-
-.header__logo h1 {
-  font-size: 2.2rem;
-  letter-spacing: 2px;
-}
-
-.header__logo span {
+/* texto do logo */
+.logo-text {
+  font-size: 1.4rem;
   color: var(--poke-yellow);
   text-shadow: 0 0 10px #ffde00aa;
+  font-weight: 700;
 }
 
 /* Navegação */
@@ -92,6 +86,8 @@
   display: flex;
   gap: 2rem;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .header__link {
@@ -110,7 +106,7 @@
   box-shadow: 0 5px 15px rgba(0,0,0,0.4);
 }
 
-/* Cores por tipo */
+/* Cores por tipo (mantive) */
 .type-water { background: rgba(68, 155, 255, 0.3); }
 .type-fire { background: rgba(255, 74, 74, 0.3); }
 .type-grass { background: rgba(74, 209, 94, 0.3); }
@@ -131,15 +127,25 @@
 .theme-toggle {
   background: none;
   border: none;
-  font-size: 1.8rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: transform 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
 }
 
 .theme-toggle:hover {
-  transform: scale(1.2);
+  transform: scale(1.05);
 }
 
+/* Ícones (deixe aqui para você substituir por svgs, se quiser) */
+.icon { display: inline-block; width: 20px; height: 20px; }
+
+/* Toggle mobile (hambúrguer) */
 .header__mobile-toggle {
   display: none;
   flex-direction: column;
@@ -147,9 +153,10 @@
   background: none;
   border: none;
   cursor: pointer;
+  padding: 6px;
 }
 
-.header__mobile-toggle span {
+.header__mobile-toggle .bar {
   width: 30px;
   height: 4px;
   background: var(--poke-yellow);
@@ -168,6 +175,7 @@
     background: var(--poke-blue);
     transition: left 0.4s ease;
     padding: 2rem 0;
+    display: block;
   }
 
   .header__nav.active {
@@ -175,9 +183,12 @@
   }
 
   .header__list {
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
+    margin: 0;
+    padding: 0;
   }
 
   .header__link {
@@ -191,13 +202,13 @@
   }
 
   /* Hambúrguer vira X */
-  .header__mobile-toggle.active span:nth-child(1) {
+  .header__mobile-toggle.active .bar:nth-child(1) {
     transform: rotate(45deg) translate(8px, 8px);
   }
-  .header__mobile-toggle.active span:nth-child(2) {
+  .header__mobile-toggle.active .bar:nth-child(2) {
     opacity: 0;
   }
-  .header__mobile-toggle.active span:nth-child(3) {
+  .header__mobile-toggle.active .bar:nth-child(3) {
     transform: rotate(-45deg) translate(10px, -10px);
   }
 }

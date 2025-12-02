@@ -1,10 +1,9 @@
-feature/curriculo
 // src/App.jsx
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Contexto de tema (criado por quem fez a parte do tema)
-import { ThemeProvider } from "./context/ThemaContext";
+import { ThemeProvider } from "./context/ThemeContext";
 
 // Componentes globais
 import Header from "./componentes/Header";

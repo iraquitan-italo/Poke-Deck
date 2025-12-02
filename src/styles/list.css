@@ -1,32 +1,220 @@
 /* src/styles/list.css */
-.home { padding: 16px; max-width: 1100px; margin: 0 auto; }
-.controls { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
-.controls button { padding:8px 12px; border:1px solid #ccc; background:#fff; cursor:pointer; border-radius:6px; }
-.controls button.active { background:#222; color:#fff; border-color:#222; }
 
+/* utilitários e resets */
+.home {
+  /* espaço superior caso header seja fixo (mantém compatibilidade) */
+  padding-top: calc(var(--header-height, 80px) + 16px);
+  padding-left: 16px;
+  padding-right: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* CONTROLS: só afeta botões que NÃO são type-btn (não sobrescreve os botões de tipo) */
+.controls {
+  display:flex;
+  gap:8px;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+
+/* botões gerais dentro de .controls, exceto os .type-btn */
+.controls button:not(.type-btn) {
+  padding:8px 12px;
+  border:1px solid #ccc;
+  background:#fff;
+  cursor:pointer;
+  border-radius:6px;
+}
+
+/* estado ativo para botões gerais (não type-btn) */
+.controls button:not(.type-btn).active {
+  background:#222;
+  color:#fff;
+  border-color:#222;
+}
+
+/* info / error */
 .info { color:#666; }
 .error { color:crimson; }
 
+/* Grid semântico
+   Aumentei o min para 200px para evitar colunas muito estreitas que cortam imagens */
 .list-grid {
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
+.list-grid__item {
+  margin: 0;
+  padding: 0;
+  /* garante que cada célula do grid permita que o card preencha verticalmente */
+  display: flex;
+}
+
+/* cartão clicável — agora flex para empurrar o body para baixo e evitar cortes */
 .card-item {
-  display:block;
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
   text-decoration:none;
   color:inherit;
   border-radius:8px;
-  overflow:hidden;
+  overflow: hidden; /* mantém borda arredondada, mas não corta a imagem internamente */
   border:1px solid #e6e6e6;
   background:var(--card-bg, #fff);
   transition: transform .12s ease, box-shadow .12s ease;
-  padding:8px;
+  padding: 0; /* movemos o padding para o card-body para que a thumb ocupe toda a largura */
+  outline: none;
+  width: 100%;
 }
-.card-item:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
 
-.card-thumb img { width:100%; height:160px; object-fit:cover; display:block; border-radius:6px; background:#f3f3f3; }
-.card-body { padding:8px 4px; }
-.card-body h4 { margin:0 0 6px 0; font-size:14px; }
+/* hover e focus para acessibilidade */
+.card-item:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+.card-item:focus,
+.card-item:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59,76,202,0.18);
+  transform: translateY(-2px);
+}
+
+/* conteudo interno do card */
+.card-inner { display: flex; flex-direction: column; height: 100%; }
+
+/* THUMB: contêiner com proporção fixa — evita cortes e mantém consistência */
+.card-thumb {
+  width: 100%;
+  aspect-ratio: 4 / 3; /* ajusta conforme desejar (ex.: 3/4, 4/3) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f3f3;
+  padding: 8px; /* pequeno espaçamento opcional ao redor da imagem */
+  box-sizing: border-box;
+}
+
+/* Imagem: não cortar — ocupar o maior espaço possível mantendo proporção */
+.card-thumb img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: 100%;
+  object-fit: contain; /* garante que a imagem inteira seja visível */
+  display: block;
+  border-radius: 6px;
+  background: transparent;
+}
+
+/* corpo do card */
+.card-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.card-body h4 { margin:0; font-size:14px; line-height:1.1; }
 .card-body .types { font-size:12px; color:#666; margin:0; }
+
+/* -----------------------------
+   Botões de tipo: base (específico dentro de .controls)
+   ----------------------------- */
+.controls .type-btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease;
+  outline: none;
+  display: inline-block;
+}
+
+/* Cor fixa por tipo (base) */
+.controls .type-btn.type-water     { background-color: #6390F0; color: #fff; }
+.controls .type-btn.type-fire      { background-color: #EE8130; color: #fff; }
+.controls .type-btn.type-grass     { background-color: #7AC74C; color: #fff; }
+.controls .type-btn.type-lightning { background-color: #F7D02C; color: #000; }
+
+/* Botão "Todos" (neutro) */
+.controls .type-btn.type-all { background-color: #dddddd; color: #000; }
+
+/* Hover: apenas escurecer (sem mudar a cor base) */
+.controls .type-btn:hover {
+  filter: brightness(0.85);
+  transform: translateY(-2px);
+}
+
+/* Estado ativo (selecionado) — destacar sem alterar cor base */
+.controls .type-btn.active {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+
+/* Focus visível para acessibilidade */
+.controls .type-btn:focus,
+.controls .type-btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59,76,202,0.18);
+}
+
+/* ==============================
+   Botão "Carregar mais" (específico e com prioridade)
+   ============================== */
+/* estilo base */
+.controls-load-more,
+.controls-load-more--primary {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter .12s ease, transform .12s ease, box-shadow .12s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* variante primária (azul) */
+.controls-load-more--primary {
+  background: #3b4cca;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(59,76,202,0.12);
+}
+
+/* hover/active */
+.controls-load-more--primary:hover {
+  filter: brightness(.9);
+  transform: translateY(-2px);
+}
+
+/* focus */
+.controls-load-more--primary:focus,
+.controls-load-more--primary:focus-visible {
+  box-shadow: 0 0 0 4px rgba(59,76,202,0.18);
+  outline: none;
+}
+
+/* ==============================
+   Skeleton (placeholders) — alta prioridade
+   ============================== */
+.card-skeleton {
+  width: 100%;
+  height: 220px;
+  border-radius: 8px;
+  background: linear-gradient(90deg,#eee,#f6f6f6,#eee);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+/* grid para skeletons — usa mesma classe .list-grid */
+.list-grid .card-skeleton {
+  margin: 0;
+}
+
+/* shimmer keyframes */
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
