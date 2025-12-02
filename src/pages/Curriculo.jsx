@@ -1,4 +1,5 @@
 // src/pages/Curriculo.jsx
+feature/curriculo
 import React from "react";
 import "../styles/curriculo.css";
 

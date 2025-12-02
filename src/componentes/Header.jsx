@@ -1,63 +1,69 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/header.css';
+// Importa o hook para o tema
+import { useTheme } from '../context/ThemaContext';
+import { Link } from 'react-router-dom';
 
-const Header = ({ toggleTheme, currentTheme }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+// Componente Header funcional
+export default function Header() {
+    // Puxa a função de alternar tema e o tema atual
+    const { toggleTheme, currentTheme } = useTheme();
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    // Estado para controle do menu mobile, se for necessário
+    const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  // Fecha o menu ao redimensionar para desktop
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768) setIsMenuOpen(false);
+    // Função para alternar o estado do menu
+    const handleToggleMobileMenu = () => {
+        setIsMobileOpen(!isMobileOpen);
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
-  return (
-    <header className="header">
-      <div className="container header__container">
-        
-        {/* Logo Pokémon */}
-        <a href="/" className="header__logo">
-          <div className="logo-pokeball">
-            <span className="pokeball-center"></span>
-          </div>
-          <h1>Poké<span>Deck</span></h1>
-        </a>
+    return (
+        <header className="header">
+            <div className="container header_container">
+                {/* Logo e Nome do Projeto */}
+                <div className="header_logo">
+                    <Link to="/">
+                        <span className="logo-pokeball"></span>
+                        <span className="logo-text">Poke-Deck</span>
+                    </Link>
+                </div>
 
-        {/* Navegação */}
-        <nav className={`header__nav ${isMenuOpen ? 'active' : ''}`}>
-          <ul className="header__list">
-            <li><a href="/" className="header__link">Home</a></li>
-            <li><a href="/cards" className="header__link">Todos os Cards</a></li>
-            <li><a href="/water" className="header__link type-water">Water</a></li>
-            <li><a href="/fire" className="header__link type-fire">Fire</a></li>
-            <li><a href="/grass" className="header__link type-grass">Grass</a></li>
-            <li><a href="/lightning" className="header__link type-lightning">Lightning</a></li>
-          </ul>
-        </nav>
+                {/* Navegação Principal */}
+                <nav className={`header_nav ${isMobileOpen ? 'active' : ''}`}>
+                    <ul className="header_list">
+                        <li>
+                            <Link to="/" onClick={handleToggleMobileMenu}>Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/card/1" onClick={handleToggleMobileMenu}>Card Detalhes</Link>
+                        </li>
+                        <li>
+                            <Link to="/curriculo" onClick={handleToggleMobileMenu}>Currículo</Link>
+                        </li>
+                    </ul>
+                </nav>
 
-        {/* Botão Dark/Light + Menu Mobile */}
-        <div className="header__actions">
-          <button onClick={toggleTheme} className="theme-toggle" aria-label="Alternar tema">
-            {currentTheme === 'dark' ? '☀️' : '🌙'}
-          </button>
+                {/* Ações (Botão de Tema) */}
+                <div className="header_actions">
+                    {/* Botão de alternar tema */}
+                    <button 
+                        onClick={toggleTheme} 
+                        className={`theme-toggle ${currentTheme === 'dark' ? 'active' : ''}`}
+                        aria-label="Alterar tema"
+                    >
+                        {/* Ícones de sol ou lua, dependendo do tema */}
+                        <span className={`icon ${currentTheme === 'light' ? 'icon-sun' : 'icon-moon'}`}></span>
+                        {/* Texto opcional */}
+                        <span className="theme-text">{currentTheme === 'light' ? 'Escuro' : 'Claro'}</span>
+                    </button>
 
-          <button 
-            className={`header__mobile-toggle ${isMenuOpen ? 'active' : ''}`} 
-            onClick={toggleMenu}
-            aria-label="Menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-      </div>
-    </header>
-  );
-};
-
-export default Header;
+                    {/* Botão Mobile Toggle */}
+                    <button className="header_mobile_toggle" onClick={handleToggleMobileMenu}>
+                        <span className="bar"></span>
+                        <span className="bar"></span>
+                        <span className="bar"></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+    );
+}

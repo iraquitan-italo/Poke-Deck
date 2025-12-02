@@ -1,3 +1,4 @@
+feature/curriculo
 // src/App.jsx
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -50,3 +51,4 @@ export default function App() {
     </ThemeProvider>
   );
 }
+

@@ -1,7 +1,9 @@
-// Footer.jsx
+''
+
 import React from 'react';
 import '../styles/footer.css';
 
+feature/curriculo
 const Footer = () => {
   return (
     <footer className="footer">
@@ -16,3 +18,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

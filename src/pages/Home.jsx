@@ -1,7 +1,7 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState } from "react";
-import List from "../componentes/List";
-import Section from "../componentes/Section"; // ⬅️ IMPORTANTE
+import List from "../componentes/List.jsx";
+import Section from "../componentes/Section.jsx"; 
 import "../styles/list.css";
 
 export default function Home() {
@@ -17,8 +17,10 @@ export default function Home() {
     try {
       const res = await fetch("https://api.pokemontcg.io/v1/cards");
       if (!res.ok) throw new Error("Erro ao buscar cards da API");
+
       const data = await res.json();
       const items = data.cards || [];
+
       setCards(items.slice(0, 200));
       setFiltered(items.slice(0, 200));
     } catch (err) {
@@ -38,6 +40,7 @@ export default function Home() {
       setFiltered(cards);
       return;
     }
+
     const result = cards.filter(c => c.types?.includes(type));
     setFiltered(result);
   }
@@ -45,7 +48,7 @@ export default function Home() {
   return (
     <main className="home">
 
-      {/* ⬅️ Envolvendo os botões em Section */}
+      {/* SECTION dos filtros */}
       <Section title="Filtros">
         <div className="controls">
           <button
@@ -55,19 +58,19 @@ export default function Home() {
             Todos
           </button>
 
-          {["Water", "Fire", "Grass", "Lightning"].map(t => (
+          {["Water", "Fire", "Grass", "Lightning"].map(type => (
             <button
-              key={t}
-              className={activeFilter === t ? "active" : ""}
-              onClick={() => filterType(t)}
+              key={type}
+              className={activeFilter === type ? "active" : ""}
+              onClick={() => filterType(type)}
             >
-              {t}
+              {type}
             </button>
           ))}
         </div>
       </Section>
 
-      {/* ⬅️ Envolvendo Lista em outra Section */}
+      {/* SECTION da lista */}
       <Section title="Lista de Cards">
         {loading && <p className="info">Carregando cards...</p>}
         {error && <p className="error">Erro: {error}</p>}

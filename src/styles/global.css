@@ -1,0 +1,53 @@
+/* src/styles/global.css */
+
+/* ---------------------------------- */
+/* 2. VARIÁVEIS DE CORES */
+/* ---------------------------------- */
+
+/* Tema Claro (Light) - Aplicado por padrão na tag html */
+:root,
+[data-theme='light'] {
+    /* Cores Primárias */
+    --color-bg-primary: #f8f8f8;
+    --color-bg-secondary: #ffffff;
+    --color-text-primary: #1c1c1c;
+    --color-text-secondary: #666666;
+    --color-border: #cccccc;
+    --color-highlight: #007bff;
+}
+
+/* Tema Escuro (Dark) - Aplicado quando a tag html tiver data-theme='dark' */
+[data-theme='dark'] {
+    /* Cores Primárias */
+    --color-bg-primary: #121212;
+    --color-bg-secondary: #1e1e1e;
+    --color-text-primary: #f0f0f0;
+    --color-text-secondary: #b0b0b0;
+    --color-border: #333333;
+    --color-highlight: #4a90e2;
+}
+
+/* ---------------------------------- */
+/* 3. CONFIGURAÇÕES GLOBAIS E TRANSIÇÃO */
+/* ---------------------------------- */
+
+* {
+    /* Reseta margens e padding */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+    /* Configura a transição suave para TODAS as cores */
+    transition: 
+        color 0.3s ease-in-out, 
+        background-color 0.3s ease-in-out,
+        border-color 0.3s ease-in-out;
+}
+
+/* Aplicação das variáveis no Body (ou em qualquer elemento principal) */
+body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: sans-serif;
+    min-height: 100vh;
+}
